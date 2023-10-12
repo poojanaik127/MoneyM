@@ -2,7 +2,7 @@
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
 		<form [formGroup]="myForm" (Submit)="submitSignUpForm()">
-			<h1>Create Account</h1>
+			<h2>Sign Up</h2>
 			<input type="text" placeholder="Full Name" id="fullname" name="fullname" formControlName="fullname">
 
 					<div *ngIf="myForm.get('fullname').hasError('required') && myForm.get('fullname').touched" class="error">Full Name is required
@@ -12,7 +12,7 @@
 					</div>
 					
 				
-			<input type="text" placeholder="mbno" id="mbno" name="mbno"  formControlName="mbno">
+			<input type="text" placeholder="Mobile" id="mbno" name="mbno"  formControlName="mbno">
 				
 				<div *ngIf="myForm.get('mbno').hasError('required') && myForm.get('mbno').touched" class="error">Mbno is required
 				</div>
@@ -47,36 +47,37 @@
 					<div *ngIf="myForm.get('otp').hasError('fixedLen')" class="error">OTP must contains 4 digits
 					</div>
 
-					<button>Submit otp</button>
+					<button (click)="submitOTP()" *ngIf="!showPasswordInput">Submit otp</button>
 					
 			</div>
 
 			<button (click)="sendOTP()" *ngIf="!showOTPInput">Send otp</button>
 			
 			
-			
-			<input type="password" placeholder="Password" id="password" name="password" formControlName="password">
+			<div *ngIf="showPasswordInput">
+				<input type="password" placeholder="Password" id="password" name="password" formControlName="password">
 
-				<div *ngIf="myForm.get('password').hasError('required') && myForm.get('password').touched" class="error">Password is required
-				</div>
-				<div *ngIf="myForm.get('password').hasError('minlength') && myForm.get('password').touched" class="error">Password must contains atleast 8 characters
-				</div>
-				<div *ngIf="myForm.get('password').hasError('pattern') && !myForm.get('password').hasError('required') && myForm2.get('password').touched" class="error">Invalid Password format
-				</div>
-
-			<input type="password" placeholder="Confirm Password" id="cpassword" name="cpassword" formControlName="cpassword">
-				
-					<div *ngIf="myForm.hasError('mismatch')" class="error">Password do not match
+					<div *ngIf="myForm.get('password').hasError('required') && myForm.get('password').touched" class="error">Password is required
 					</div>
+					<div *ngIf="myForm.get('password').hasError('minlength') && myForm.get('password').touched" class="error">Password must contains atleast 8 characters
+					</div>
+					<div *ngIf="myForm.get('password').hasError('pattern') && !myForm.get('password').hasError('required') && myForm2.get('password').touched" class="error">Invalid Password format
+					</div>
+
+				<input type="password" placeholder="Confirm Password" id="cpassword" name="cpassword" formControlName="cpassword">
 					
-					
-			<br>
-			<button [disabled]="!myForm.valid">Sign Up</button>
+						<div *ngIf="myForm.hasError('mismatch')" class="error">Password do not match
+						</div>
+						
+						
+				<br>
+				<button [disabled]="!myForm.valid">Sign Up</button>
+			</div>
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
 		<form  [formGroup]="myForm2" (Submit)="submitSignInForm()">
-			<h1>Sign in</h1>
+			<h2>Sign in</h2>
 			<span>or use your account</span>
 			<input type="email" placeholder="Email" id="email" name="email" formControlName="email">
 					<div *ngIf="myForm2.get('email').hasError('required') && myForm2.get('email').touched" class="error">Email is required
